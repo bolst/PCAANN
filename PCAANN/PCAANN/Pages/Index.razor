@@ -1,23 +1,51 @@
 ﻿@page "/"
 @using PCAANN.Api
 
-<Heading>PCA-ANN</Heading>
+@if (ConnectionEstablished)
+{
+    <Heading>PCA-ANN</Heading>
 
-<Divider />
+    <Divider />
 
-<Grid>
-    <Column ColumnSize="ColumnSize.Is1"></Column>
+    <Grid>
+        <Column ColumnSize="ColumnSize.Is1"></Column>
 
-    <Column ColumnSize="ColumnSize.Is1" TextAlignment="TextAlignment.Center">
-        <FlowChart />
-    </Column>
+        <Column ColumnSize="ColumnSize.Is1" TextAlignment="TextAlignment.Center">
+            <FlowChart />
+        </Column>
 
-    <Column ColumnSize="ColumnSize.Is1"></Column>
+        <Column ColumnSize="ColumnSize.Is1"></Column>
 
-    <Column ColumnSize="ColumnSize.Is8">
-        <RunOptions.Options />
-    </Column>
+        <Column ColumnSize="ColumnSize.Is8">
+            <RunOptions.Options />
+        </Column>
 
-    <Column ColumnSize="ColumnSize.Is1"></Column>
+        <Column ColumnSize="ColumnSize.Is1"></Column>
 
-</Grid>
+    </Grid>
+}
+else
+{
+    <Row Position="Position.Relative.Top.Is50.Translate.MiddleY">
+        <Column ColumnSize="ColumnSize.Is4"></Column>
+
+        <Column ColumnSize="ColumnSize.Is4" TextAlignment="TextAlignment.Center">
+            <Row>
+                <Column ColumnSize="ColumnSize.Is4"></Column>
+                <Column ColumnSize="ColumnSize.Is4" TextAlignment="TextAlignment.Center">
+                    <Heading>Loading...</Heading>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is1" TextAlignment="TextAlignment.Center">
+                    <Tooltip Text="@ToolContent" Position="Position.Relative.Top.Is50.Translate.MiddleY">
+                        <Icon Name="IconName.ExclamationCircle" IconSize="IconSize.Large" />
+                    </Tooltip>
+                </Column>
+            </Row>
+            <Row>
+                <Progress Value="100" Width="Width.Is100" Animated Striped />
+            </Row>
+        </Column>
+
+        <Column ColumnSize="ColumnSize.Is4"></Column>
+    </Row>
+}

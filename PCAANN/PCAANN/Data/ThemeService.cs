@@ -21,7 +21,7 @@ public class ThemeService
 
     private ThemeService()
     {
-        Primary = "#3772FF"; // blue
+        Primary = "#5c8cff"; // blue
         Secondary = "#BC62B7"; // purple
         Success = "#31AF51"; // green
         Warning = "#DF2935"; // red

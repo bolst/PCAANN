@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["PCAANN/PCAANN/PCAANN.csproj", "."]
 RUN dotnet restore "PCAANN.csproj"
-COPY PCAANN/. .
+COPY PCAANN/PCAANN/. .
 RUN dotnet build "PCAANN.csproj" -c Release -o /app/build
 
 FROM build AS publish

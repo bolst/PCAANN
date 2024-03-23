@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Nic\\git\\PCAANN\\PCAANN\\PCAANN\\wwwroot\\arrow.png",
+      "PackagePath": "staticwebassets\\arrow.png"
+    },
+    {
+      "Id": "C:\\Users\\Nic\\git\\PCAANN\\PCAANN\\PCAANN\\wwwroot\\brand-logo.png",
+      "PackagePath": "staticwebassets\\brand-logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Nic\\git\\PCAANN\\PCAANN\\PCAANN\\wwwroot\\css\\blazor-ui.css",
+      "PackagePath": "staticwebassets\\css\\blazor-ui.css"
+    },
+    {
+      "Id": "C:\\Users\\Nic\\git\\PCAANN\\PCAANN\\PCAANN\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Nic\\git\\PCAANN\\PCAANN\\PCAANN\\wwwroot\\uwinpng.png",
+      "PackagePath": "staticwebassets\\uwinpng.png"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.PCAANN.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.build.PCAANN.props",
+      "PackagePath": "build\\PCAANN.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.PCAANN.props",
+      "PackagePath": "buildMultiTargeting\\PCAANN.props"
+    },
+    {
+      "Id": "obj\\Release\\net6.0\\staticwebassets\\msbuild.buildTransitive.PCAANN.props",
+      "PackagePath": "buildTransitive\\PCAANN.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
