@@ -1,0 +1,22 @@
+<Button Background="ButtonColor" TextColor="ButtonTextColor" TextWeight="ButtonTextWeight" Width="@ButtonWidth"
+    Clicked="Action" @onmouseover="MouseOver" @onmouseout="MouseOut">@ChildContent</Button>
+
+
+@code {
+    [Parameter] public Background ButtonColor { get; set; } = Background.Primary;
+    private TextColor buttonTextColor = TextColor.Secondary;
+    [Parameter] public TextColor ButtonTextColor { get; set; } = TextColor.Secondary;
+    [Parameter] public TextColor HoverColor { get; set; } = TextColor.White;
+    [Parameter] public TextWeight ButtonTextWeight { get; set; } = TextWeight.Normal;
+    [Parameter] public IFluentSizing ButtonWidth { get; set; } = Width.Is100;
+    [Parameter] public EventCallback Action { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    string fancybutton { get; set; }
+    void MouseOver(MouseEventArgs e)
+    {
+        buttonTextColor = ButtonTextColor;
+        ButtonTextColor = HoverColor;
+    }
+    void MouseOut(MouseEventArgs e) { ButtonTextColor = buttonTextColor; }
+}

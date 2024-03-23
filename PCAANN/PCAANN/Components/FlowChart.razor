@@ -1,0 +1,284 @@
+@using PCAANN.Api
+
+<Alert Color="Color.Warning" @bind-Visible="@isAlertVisible">
+    <AlertDescription>
+        @alertText
+    </AlertDescription>
+    <CloseButton />
+</Alert>
+
+@if (isLoading)
+{
+    <Progress Indeterminate />
+}
+
+<Column>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="@GetFontColor(new BkLoadRaw())"
+            Action="async () => await OpenFile(new BkLoadRaw())">Load Raw Data</FancyButton>
+    </Row>
+
+    <br>
+
+    <Row>
+        <Arrow />
+    </Row>
+
+    <br>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="@GetFontColor(new BkRunPca())"
+            Action="async () => await CallApi(new BkRunPca())">Run PCA</FancyButton>
+    </Row>
+
+
+    <br>
+
+    <Row>
+        <Arrow />
+    </Row>
+
+    <br>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="@GetFontColor(new BkLoadPcaScores())"
+            Action="async () => await OpenFile(new BkLoadPcaScores(), false)">Load PCA
+            Scores</FancyButton>
+    </Row>
+
+    <br>
+
+    <Row>
+        <Arrow />
+    </Row>
+
+    <br>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="@GetFontColor(new BkRunAnn())"
+            Action="async () => await CallApi(new BkRunAnn())">Run ANN</FancyButton>
+    </Row>
+
+    <br>
+
+    <Row>
+        <Arrow />
+    </Row>
+
+    <br>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="@GetFontColor(new BkViewResults())"
+            Action="async () => await CallApi(new BkViewResults())">View
+            Results</FancyButton>
+    </Row>
+
+    <br>
+
+    <Row>
+        <FancyButton ButtonColor="Background.Dark" ButtonTextColor="TextColor.Danger" Action="Reset">Reset</FancyButton>
+    </Row>
+
+</Column>
+
+@if (RawDataFiles != null && ScoresFiles != null)
+{
+
+    <Modal @ref="rawModalRef">
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Select File</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+                <Select TValue="string" SelectedValue="@rawSelectedFile" SelectedValueChanged="@RawOnChanged">
+                    <SelectItem Hidden>Select</SelectItem>
+                    @foreach (string file in RawDataFiles)
+                    {
+                        var myFilePath = file;
+                        var myFile = System.IO.Path.GetFileName(myFilePath);
+                        <SelectItem Value="@myFile">@myFile</SelectItem>
+                    }
+                </Select>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Primary" Clicked="@SaveRawFile">Save</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Modal>
+    <Modal @ref="pcaModalRef">
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Select File</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+                <Select TValue="string" SelectedValue="@pcaSelectedFile" SelectedValueChanged="@PcaOnChanged">
+                    <SelectItem Hidden>Select</SelectItem>
+                    @foreach (string file in ScoresFiles)
+                    {
+                        var myFilePath = file;
+                        var myFile = System.IO.Path.GetFileName(myFilePath);
+                        <SelectItem Value="@myFile">@myFile</SelectItem>
+                    }
+                </Select>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Primary" Clicked="@SavePcaFile">Save</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Modal>
+}
+
+
+@code {
+
+    private bool isAlertVisible { get; set; } = false;
+    private string alertText { get; set; } = "";
+    private void SendAlert(string alert)
+    {
+        alertText = alert;
+        isAlertVisible = true;
+    }
+
+    private TextColor GetFontColor(AbstractBk bk)
+    {
+        var Theme = ThemeService.Instance();
+        return bk.IsComplete() ? TextColor.Success : TextColor.Danger;
+    }
+
+    private bool isLoading = false;
+
+    async Task CallApi(AbstractBk bk)
+    {
+        var action = bk.Perform();
+        isLoading = true;
+
+        bool status = await action;
+
+        isLoading = false;
+
+        if (!status)
+        {
+            SendAlert(bk.GetError());
+        }
+    }
+
+    void Reset()
+    {
+        OptionProfileController.Instance().rawDataFilename = null;
+        OptionProfileController.Instance().pcaScoresFilename = null;
+        rawSelectedFile = null;
+        pcaSelectedFile = null;
+        StateService.Instance().State = StateService.STATE.Init;
+
+        isAlertVisible = false;
+    }
+
+    #region file uploads
+
+    private Modal rawModalRef;
+    private Task ShowRawModal() { return rawModalRef.Show(); }
+    private Task HideRawModal() { return rawModalRef.Hide(); }
+    private string rawSelectedFile { get; set; }
+    private FileEdit rawFileEdit;
+    private Modal pcaModalRef;
+    private Task ShowPcaModal() { return pcaModalRef.Show(); }
+    private Task HidePcaModal() { return pcaModalRef.Hide(); }
+    private string pcaSelectedFile { get; set; }
+    private FileEdit pcaFileEdit;
+
+    async Task RawOnChanged(String e)
+    {
+        try
+        {
+            if (e == null) return;
+            rawSelectedFile = e;
+            OptionProfileController.Instance().rawDataFilename = rawSelectedFile;
+            await CallApi(new BkLoadRaw());
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc.ToString());
+            SendAlert(exc.ToString());
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+    async Task PcaOnChanged(String e)
+    {
+        try
+        {
+            if (e == null) return;
+            pcaSelectedFile = e;
+            OptionProfileController.Instance().pcaScoresFilename = pcaSelectedFile;
+            await CallApi(new BkLoadPcaScores());
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc);
+            SendAlert(exc.ToString());
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+    async Task OpenFile(AbstractBk bk, bool isRawData = true)
+    {
+
+        var c = OptionProfileController.Instance();
+        var filename = isRawData ? c.rawDataFilename : c.pcaScoresFilename;
+
+        if (isRawData)
+        {
+            await ShowRawModal();
+        }
+        else
+        {
+
+            await ShowPcaModal();
+        }
+    }
+
+    List<string>? RawDataFiles = null;
+    List<string>? ScoresFiles = null;
+    async Task<List<string>> GetAvailableFiles(bool rawFiles)
+    {
+        List<string> retval = new List<string>();
+        List<string> filePaths = new List<string>();
+
+        //if (rawFiles) filePaths = Directory.GetFiles(@"../PCA-ANN-code/RAW-DATA");
+        //else filePaths = Directory.GetFiles(@"../PCA-ANN-code/SCORES");
+        if (rawFiles) filePaths = await Api.DataExchange.GetRawDataFiles();
+        else filePaths = await Api.DataExchange.GetScoresFiles();
+
+        retval.AddRange(filePaths);
+
+        return retval;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        RawDataFiles = await GetAvailableFiles(true);
+        ScoresFiles = await GetAvailableFiles(false);
+    }
+
+    async Task SaveRawFile()
+    {
+        await HideRawModal();
+        await CallApi(new BkLoadRaw());
+    }
+
+    async Task SavePcaFile()
+    {
+        await HidePcaModal();
+        await CallApi(new BkLoadPcaScores());
+    }
+
+    #endregion
+
+}

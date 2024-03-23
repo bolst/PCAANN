@@ -1,0 +1,167 @@
+@namespace RunOptions
+@using System.IO
+@using System.Text.Json
+@inject OptionProfile Profile
+
+<Row RowColumns="RowColumns.Are4">
+    <Column ColumnSize="ColumnSize.Is1"></Column>
+
+    <Column ColumnSize="ColumnSize.Is3" TextAlignment="TextAlignment.Center">
+        <FancyButton Action="ShowSaveModal" ButtonTextColor="TextColor.Primary" ButtonColor="Background.Dark"
+            ButtonWidth="Width.Is75" ButtonTextWeight="TextWeight.Bold">
+            Save Profile
+        </FancyButton>
+    </Column>
+
+
+    <Column ColumnSize="ColumnSize.Is3" TextAlignment="TextAlignment.Center">
+        <FancyButton Action="ShowLoadModal" ButtonTextColor="TextColor.Primary" ButtonColor="Background.Dark"
+            ButtonWidth="Width.Is75" ButtonTextWeight="TextWeight.Bold">
+            Load Profile
+        </FancyButton>
+    </Column>
+
+    <Column ColumnSize="ColumnSize.Is1"></Column>
+</Row>
+
+<br>
+
+<Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+    <Items>
+        <Tab TextWeight="TextWeight.Bold" Name="pca">PCA</Tab>
+        <Tab TextWeight="TextWeight.Bold" Name="ann">ANN</Tab>
+    </Items>
+    <Content>
+        <TabPanel Name="pca" Shadow="Shadow.Default" Padding="Padding.Is5" Border="Border.RoundedBottom.Is1">
+            <OptionItem @ref="ChildComponents[0]" @bind-ProfileItem="Profile.NumComponents" />
+            <OptionItem @ref="ChildComponents[1]" @bind-ProfileItem="Profile.FullSpectrum" />
+        </TabPanel>
+        <TabPanel Name="ann" Shadow="Shadow.Default" Padding="Padding.Is5" Border="Border.RoundedBottom.Is1">
+            <OptionItem @ref=" ChildComponents[2]" @bind-ProfileItem="Profile.Framework" />
+            <OptionItem @ref="ChildComponents[3]" @bind-ProfileItem="Profile.Optimizer" />
+            <OptionItem @ref="ChildComponents[4]" @bind-ProfileItem="Profile.Activation" />
+            <OptionItem @ref="ChildComponents[5]" @bind-ProfileItem="Profile.Loss" />
+            <OptionItem @ref="ChildComponents[6]" @bind-ProfileItem="Profile.Epochs" />
+            <OptionItem @ref="ChildComponents[7]" @bind-ProfileItem="Profile.BatchSize" />
+            <OptionItem @ref="ChildComponents[8]" @bind-ProfileItem="Profile.Patience" />
+            <OptionItem @ref="ChildComponents[9]" @bind-ProfileItem="Profile.HiddenNodes" />
+            <OptionItem @ref="ChildComponents[10]" @bind-ProfileItem="Profile.Runs" />
+            <OptionItem @ref="ChildComponents[11]" @bind-ProfileItem="Profile.ClassNumber" />
+        </TabPanel>
+    </Content>
+</Tabs>
+
+
+<Modal @ref="LoadProfileModal">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Select File</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Select TValue="string" SelectedValue="@SelectedProfileFile" SelectedValueChanged="@LoadProfileOnChanged">
+                <SelectItem Hidden>Select</SelectItem>
+                @foreach (string file in ProfileFiles)
+                {
+                    var myFilePath = file;
+                    var myFile = System.IO.Path.GetFileName(myFilePath);
+                    <SelectItem Value="@myFile">@myFile</SelectItem>
+                }
+            </Select>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="@LoadProfile">Load</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="SaveProfileModal">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Enter Profile Name</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <TextEdit Placeholder="Profile name..." @bind-Text="@SaveProfileName" />
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Clicked="@SaveProfile">Save</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+
+    string selectedTab = "pca";
+    private Task OnSelectedTabChanged(string name)
+    {
+        selectedTab = name;
+        return Task.CompletedTask;
+    }
+
+    private Modal LoadProfileModal;
+    private Task ShowLoadModal() { return LoadProfileModal.Show(); }
+    private Task HideLoadModal() { return LoadProfileModal.Hide(); }
+    private string SelectedProfileFile { get; set; }
+    string[] ProfileFiles;
+    async Task LoadProfileOnChanged(String e)
+    {
+        try
+        {
+            if (e == null) return;
+            SelectedProfileFile = e;
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc);
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private Modal SaveProfileModal;
+    private Task ShowSaveModal() { return SaveProfileModal.Show(); }
+    private Task HideSaveModal() { return SaveProfileModal.Hide(); }
+    private string SaveProfileName { get; set; }
+
+    protected OptionItem[] ChildComponents = new OptionItem[12];
+    private void RefreshChildren()
+    {
+        for (int i = 0; i < ChildComponents.Length; i++)
+            ChildComponents[i].Refresh();
+    }
+
+    public void LoadProfile()
+    {
+        ProfileFiles = Directory.GetFiles("Profiles");
+        Profile.Update($"Profiles/{SelectedProfileFile}");
+        RefreshChildren();
+        HideLoadModal();
+    }
+
+    public void SaveProfile()
+    {
+        ProfileFiles = Directory.GetFiles("Profiles");
+        SaveProfileName = SaveProfileName.Replace(".json", "");
+        if (File.Exists($"Profiles/{SaveProfileName}.json"))
+        {
+            SaveProfileName = "Name is already taken!";
+        }
+        else
+        {
+            File.WriteAllText($"Profiles/{SaveProfileName}.json", Profile.ToJson());
+            HideSaveModal();
+        }
+        Console.WriteLine(Profile.ToJson());
+    }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine(Directory.GetCurrentDirectory());
+        ProfileFiles = Directory.GetFiles("Profiles");
+        base.OnInitialized();
+    }
+
+}
