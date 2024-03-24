@@ -51,30 +51,31 @@
     </Content>
 </Tabs>
 
-
-<Modal @ref="LoadProfileModal">
-    <ModalContent Centered>
-        <ModalHeader>
-            <ModalTitle>Select File</ModalTitle>
-            <CloseButton />
-        </ModalHeader>
-        <ModalBody>
-            <Select TValue="string" SelectedValue="@SelectedProfileFile" SelectedValueChanged="@LoadProfileOnChanged">
-                <SelectItem Hidden>Select</SelectItem>
-                @foreach (string file in ProfileFiles)
-                {
-                    var myFilePath = file;
-                    var myFile = System.IO.Path.GetFileName(myFilePath);
-                    <SelectItem Value="@myFile">@myFile</SelectItem>
-                }
-            </Select>
-        </ModalBody>
-        <ModalFooter>
-            <Button Color="Color.Primary" Clicked="@LoadProfile">Load</Button>
-        </ModalFooter>
-    </ModalContent>
-</Modal>
-
+@if (ProfileFiles != null)
+{
+    <Modal @ref="LoadProfileModal">
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Select File</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+                <Select TValue="string" SelectedValue="@SelectedProfileFile" SelectedValueChanged="@LoadProfileOnChanged">
+                    <SelectItem Hidden>Select</SelectItem>
+                    @foreach (string file in ProfileFiles)
+                    {
+                        var myFilePath = file;
+                        var myFile = System.IO.Path.GetFileName(myFilePath);
+                        <SelectItem Value="@myFile">@myFile</SelectItem>
+                    }
+                </Select>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Primary" Clicked="@LoadProfile">Load</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Modal>
+}
 <Modal @ref="SaveProfileModal">
     <ModalContent Centered>
         <ModalHeader>
@@ -100,10 +101,15 @@
     }
 
     private Modal LoadProfileModal;
-    private Task ShowLoadModal() { return LoadProfileModal.Show(); }
+    private async Task ShowLoadModal()
+    {
+        List<string> p = await PCAANN.Api.DataExchange.GetProfiles();
+        ProfileFiles = p.ToArray();
+        await LoadProfileModal.Show();
+    }
     private Task HideLoadModal() { return LoadProfileModal.Hide(); }
     private string SelectedProfileFile { get; set; }
-    string[] ProfileFiles;
+    string[]? ProfileFiles;
     async Task LoadProfileOnChanged(String e)
     {
         try
@@ -133,35 +139,40 @@
             ChildComponents[i].Refresh();
     }
 
-    public void LoadProfile()
+    public async Task LoadProfile()
     {
-        ProfileFiles = Directory.GetFiles("Profiles");
+        //ProfileFiles = Directory.GetFiles("Profiles");
+        string? ProfileStr = await PCAANN.Api.DataExchange.GetProfileAsJsonStr(SelectedProfileFile);
+        if (ProfileStr == null)
+        {
+            //alert
+            return;
+        }
+        File.WriteAllText($"Profiles/{SelectedProfileFile}", ProfileStr);
         Profile.Update($"Profiles/{SelectedProfileFile}");
         RefreshChildren();
         HideLoadModal();
     }
 
-    public void SaveProfile()
+    public async Task SaveProfile()
     {
-        ProfileFiles = Directory.GetFiles("Profiles");
-        SaveProfileName = SaveProfileName.Replace(".json", "");
-        if (File.Exists($"Profiles/{SaveProfileName}.json"))
+        SaveProfileName = SaveProfileName.Replace(".json", "") + ".json";
+        string msg = await PCAANN.Api.DataExchange.SaveProfile(Profile, SaveProfileName);
+        if (msg != "success")
         {
-            SaveProfileName = "Name is already taken!";
+            // alert
+            Console.WriteLine(msg);
         }
-        else
-        {
-            File.WriteAllText($"Profiles/{SaveProfileName}.json", Profile.ToJson());
-            HideSaveModal();
-        }
+        //File.WriteAllText($"Profiles/{SaveProfileName}.json", Profile.ToJson());
+        HideSaveModal();
         Console.WriteLine(Profile.ToJson());
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine(Directory.GetCurrentDirectory());
-        ProfileFiles = Directory.GetFiles("Profiles");
-        base.OnInitialized();
+        //ProfileFiles = Directory.GetFiles("Profiles");
+        List<string> p = await PCAANN.Api.DataExchange.GetProfiles();
+        ProfileFiles = p.ToArray();
     }
 
 }

@@ -108,33 +108,7 @@ public class OptionProfile
 
     public string ToJson()
     {
-        return $@"
-                [
-                    {NumComponents.ToJson()}
-                    ,
-                    {FullSpectrum.ToJson()}
-                    ,
-                    {Framework.ToJson()}
-                    ,
-                    {Optimizer.ToJson()}
-                    ,
-                    {Activation.ToJson()}
-                    ,
-                    {Loss.ToJson()}
-                    ,
-                    {Epochs.ToJson()}
-                    ,
-                    {BatchSize.ToJson()}
-                    ,
-                    {Patience.ToJson()}
-                    ,
-                    {HiddenNodes.ToJson()}
-                    ,
-                    {Runs.ToJson()}
-                    ,
-                    {ClassNumber.ToJson()}
-                ]
-        ";
+        return $@"[{NumComponents.ToJson()},{FullSpectrum.ToJson()},{Framework.ToJson()},{Optimizer.ToJson()},{Activation.ToJson()},{Loss.ToJson()},{Epochs.ToJson()},{BatchSize.ToJson()},{Patience.ToJson()},{HiddenNodes.ToJson()},{Runs.ToJson()},{ClassNumber.ToJson()}]";
     }
 
     // Root myDeserializedClass = JsonConvert.DeserializeObject<List<Root>>(myJsonResponse);

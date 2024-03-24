@@ -22,7 +22,7 @@
         {
             "id": "Framework",
             "type": "selectable",
-            "value": "TensorFlow",
+            "value": "Scikit-Learn",
             "enabled": true
         }
         
@@ -49,7 +49,7 @@
         {
             "id": "Loss",
             "type": "selectable",
-            "value": "binary_crossentropy",
+            "value": "categorical_crossentropy",
             "enabled": true
         }
         
@@ -58,7 +58,7 @@
         {
             "id": "Epochs",
             "type": "range",
-            "value": 5000,
+            "value": 200,
             "enabled": false
         }
         
@@ -67,7 +67,7 @@
         {
             "id": "Batch Size",
             "type": "range",
-            "value": 16,
+            "value": 64,
             "enabled": false
         }
         
@@ -76,8 +76,8 @@
         {
             "id": "Patience",
             "type": "range",
-            "value": 35,
-            "enabled": false
+            "value": "10 40 50 5",
+            "enabled": true
         }
         
                     ,
@@ -85,8 +85,8 @@
         {
             "id": "Hidden Nodes",
             "type": "range",
-            "value": 120,
-            "enabled": false
+            "value": "100 80 180 10",
+            "enabled": true
         }
         
                     ,
@@ -94,7 +94,7 @@
         {
             "id": "Runs",
             "type": "numerical",
-            "value": 3,
+            "value": 5,
             "enabled": true
         }
         

@@ -1,111 +1,74 @@
-
-                [
-                    
-        {
-            "id": "Number of Components",
-            "type": "numerical",
-            "value": 10,
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Full Spectrum",
-            "type": "bool",
-            "value": "True",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Framework",
-            "type": "selectable",
-            "value": "Scikit-Learn",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Optimizer",
-            "type": "selectable",
-            "value": "adam",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Activation",
-            "type": "selectable",
-            "value": "relu",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Loss",
-            "type": "selectable",
-            "value": "categorical_crossentropy",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Epochs",
-            "type": "range",
-            "value": 200,
-            "enabled": false
-        }
-        
-                    ,
-                    
-        {
-            "id": "Batch Size",
-            "type": "range",
-            "value": 64,
-            "enabled": false
-        }
-        
-                    ,
-                    
-        {
-            "id": "Patience",
-            "type": "range",
-            "value": "10 40 50 5",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Hidden Nodes",
-            "type": "range",
-            "value": "100 80 180 10",
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Runs",
-            "type": "numerical",
-            "value": 5,
-            "enabled": true
-        }
-        
-                    ,
-                    
-        {
-            "id": "Class Number",
-            "type": "numerical",
-            "value": 4,
-            "enabled": true
-        }
-        
-                ]
-        
+[
+  {
+    "enabled": true,
+    "id": "Number of Components",
+    "type": "numerical",
+    "value": 10
+  },
+  {
+    "enabled": true,
+    "id": "Full Spectrum",
+    "type": "bool",
+    "value": "True"
+  },
+  {
+    "enabled": true,
+    "id": "Framework",
+    "type": "selectable",
+    "value": "Scikit-Learn"
+  },
+  {
+    "enabled": true,
+    "id": "Optimizer",
+    "type": "selectable",
+    "value": "adam"
+  },
+  {
+    "enabled": true,
+    "id": "Activation",
+    "type": "selectable",
+    "value": "relu"
+  },
+  {
+    "enabled": true,
+    "id": "Loss",
+    "type": "selectable",
+    "value": "categorical_crossentropy"
+  },
+  {
+    "enabled": false,
+    "id": "Epochs",
+    "type": "range",
+    "value": 200
+  },
+  {
+    "enabled": false,
+    "id": "Batch Size",
+    "type": "range",
+    "value": 64
+  },
+  {
+    "enabled": true,
+    "id": "Patience",
+    "type": "range",
+    "value": "10 40 50 5"
+  },
+  {
+    "enabled": true,
+    "id": "Hidden Nodes",
+    "type": "range",
+    "value": "100 80 180 10"
+  },
+  {
+    "enabled": true,
+    "id": "Runs",
+    "type": "numerical",
+    "value": 5
+  },
+  {
+    "enabled": true,
+    "id": "Class Number",
+    "type": "numerical",
+    "value": 4
+  }
+]

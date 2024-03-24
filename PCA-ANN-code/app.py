@@ -2,6 +2,7 @@ import os
 from flask import Flask, request
 from pca import PCA, RAW_DATA_PATH, SCORES_DIR
 from ann import ANN, RESULTS_DIR
+import json
 
 app = Flask(__name__)
 
@@ -11,6 +12,8 @@ ann_instance = None
 raw_data_filepath = ''
 pca_scores_filepath = ''
 ann_results_filepath = ''
+
+PROFILES_DIR = 'PCA-ANN-code/PROFILES'
 
 
 def success():
@@ -141,6 +144,36 @@ def view_results():
         print(exc)
         return 'error'
     return success()
+
+
+@app.route('/profiles')
+def profiles():
+    retval = [f for f in os.listdir(PROFILES_DIR) if os.path.isfile(
+        os.path.join(PROFILES_DIR, f)) and f.endswith('.json')]
+    return retval
+
+
+@app.route('/saveprofile/<string:name>', methods=['POST'])
+def save_profile(name: str):
+    received_data = request.json
+    json_data = json.loads(received_data)
+    # check if file already exists
+    if os.path.isfile(os.path.join(PROFILES_DIR, name)):
+        return 'that name is already taken'
+    with open(os.path.join(PROFILES_DIR, name), 'w') as out_file:
+        json.dump(json_data, out_file)
+    return success()
+
+
+@app.route('/profile/<string:name>')
+def get_profile(name: str):
+    _path = os.path.join(PROFILES_DIR, name)
+    if os.path.isfile(_path):
+        with open(_path, 'r') as in_file:
+            retval = json.load(in_file)
+            return retval
+    else:
+        return ''
 
 
 def parse_ranges(data: dict) -> dict:
