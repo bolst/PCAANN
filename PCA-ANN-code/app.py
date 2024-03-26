@@ -23,17 +23,17 @@ def success():
 
 @app.route('/raw-data/files')
 def raw_data_files():
-    return os.listdir(RAW_DATA_PATH)
+    return [f for f in os.listdir(RAW_DATA_PATH) if f.endswith('.xlsx')]
 
 
 @app.route('/scores/files')
 def scores_files():
-    return os.listdir(SCORES_DIR)
+    return [f for f in os.listdir(SCORES_DIR) if f.endswith('.xlsx')]
 
 
 @app.route('/results/files')
 def results_files():
-    return os.listdir(RESULTS_DIR)
+    return [f for f in os.listdir(RESULTS_DIR) if f.endswith('.xlsx')]
 
 
 @app.route('/loadfile', methods=['POST'])

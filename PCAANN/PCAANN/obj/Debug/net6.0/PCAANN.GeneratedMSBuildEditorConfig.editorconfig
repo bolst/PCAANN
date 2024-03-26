@@ -9,59 +9,59 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PCAANN
 build_property.RootNamespace = PCAANN
-build_property.ProjectDir = C:\Users\Nic\git\PCAANN\PCAANN\PCAANN\
+build_property.ProjectDir = c:\Users\Schroedinger!\Documents\Nic\PCAANN\PCAANN\PCAANN\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Nic\git\PCAANN\PCAANN\PCAANN
+build_property.MSBuildProjectDirectory = c:\Users\Schroedinger!\Documents\Nic\PCAANN\PCAANN\PCAANN
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/App.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Components/Arrow.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Components/Arrow.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcnJvdy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Components/FancyButton.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Components/FancyButton.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xGYW5jeUJ1dHRvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Components/FlowChart.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Components/FlowChart.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xGbG93Q2hhcnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Components/RunOptions/OptionItem.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Components/RunOptions/OptionItem.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSdW5PcHRpb25zXE9wdGlvbkl0ZW0ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Components/RunOptions/Options.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Components/RunOptions/Options.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSdW5PcHRpb25zXE9wdGlvbnMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Layouts/MainLayout.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Layouts/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0c1xNYWluTGF5b3V0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Pages/Index.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/_Imports.razor]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Pages/Error.cshtml]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Pages/_Host.cshtml]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Nic/git/PCAANN/PCAANN/PCAANN/Pages/_Layout.cshtml]
+[c:/Users/Schroedinger\!/Documents/Nic/PCAANN/PCAANN/PCAANN/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
