@@ -1,16 +1,23 @@
-import os, sys, subprocess
+import os, sys, subprocess, signal
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 
-def run_script(name: str):
-    p = subprocess.Popen(["powershell.exe", os.path.join(CWD, name)], stdout=sys.stdout)
+def exec_script(name: str):
+    print(os.path.join(CWD, name))
+    p = subprocess.Popen(['call', os.path.join(CWD, name)], stdout=sys.stdout, shell=True)
     p.communicate()
 
 def build():
-    run_script("build.ps1")
+    exec_script("build.bat")
 
 def run():
-    run_script("run.ps1")
+    exec_script("run.bat")
+
+def stop():
+    exec_script("stop.bat")
+
+def driver():
+    pass
 
 if __name__ == "__main__":
-    build()
+    driver()

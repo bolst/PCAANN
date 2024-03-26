@@ -1,5 +1,6 @@
 @Echo off
 
-REM this will stop all open command prompts and stop the running docker image
-docker stop pca_ann_image && ^
+REM this will stop all open command prompts and stop the running docker container
+docker container stop pca_ann_container
+docker container rm pca_ann_container
 taskkill /f /im OpenConsole.exe
