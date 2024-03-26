@@ -36,6 +36,9 @@ def driver(first_run=False):
         root.withdraw()
         file_path = filedialog.askopenfilename()
         if file_path.endswith('.xlsx'):
+            print(f'Selected file: {file_path}')
+            file_path = file_path.replace('/', '\\')
+            os.system(f"copy \"{file_path}\" {os.path.join('PCA-ANN-code', 'RAW-DATA')}")
             pass
         else:
             print('Error: data must be in .xlsx format')
