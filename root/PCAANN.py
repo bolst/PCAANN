@@ -20,11 +20,28 @@ def stop():
 def update():
     exec_script("update.bat")
 
+def help():
+    print("")
+    print("-----------------------------------------------------------------")
+    print("-----------------------------HELP--------------------------------")
+    print("-----------------------------------------------------------------")
+    print("Options")
+    print("\t start: Starts PCAANN (after installation <build> must run at least once before using this)")
+    print("\t stop: Shuts down PCAANN")
+    print("\t build: Builds the program (do this first after installation)")
+    print("\t data: Allows user to input raw data that PCAANN can recognize")
+    print("\t update: Updates PCAANN to the latest version")
+    print("\t exit: Stops this terminal (does not shut down PCAANN)")
+    print("Make sure the Docker engine is running")
+    print("For more help refer to the SOP or contact bolton21@uwindsor.ca")
+    print("")
+
+
 def driver(first_run=False):
     if first_run:
         os.system("cls")
     print("-----------------------------------------------------------------")
-    print("Options: <start> <stop> <build> <data> <update> <exit>")
+    print("Options: <start> <stop> <build> <data> <update> <help> <exit>")
     user_input = input(":: ")
     if user_input == 'start':
         print('Starting PCAANN...')
@@ -47,6 +64,8 @@ def driver(first_run=False):
             pass
         else:
             print('Error: data must be in .xlsx format')
+    elif user_input == 'help':
+        help()
     elif user_input == 'exit':
         exit()
     driver()
