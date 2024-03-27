@@ -17,11 +17,14 @@ def run():
 def stop():
     exec_script("stop.bat")
 
+def update():
+    exec_script("update.bat")
+
 def driver(first_run=False):
     if first_run:
         os.system("cls")
     print("-----------------------------------------------------------------")
-    print("Options: <start> <stop> <build> <data> <exit>")
+    print("Options: <start> <stop> <build> <data> <update> <exit>")
     user_input = input(":: ")
     if user_input == 'start':
         print('Starting PCAANN...')
@@ -31,6 +34,8 @@ def driver(first_run=False):
         stop()
     elif user_input == 'build':
         build()
+    elif user_input == 'update':
+        update()
     elif user_input == 'data':
         root = tk.Tk()
         root.withdraw()
