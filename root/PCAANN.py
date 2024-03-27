@@ -53,7 +53,7 @@ def driver(first_run=False):
         build()
     elif user_input == 'update':
         update()
-        input("PCAANN updated. Must restart terminal (press enter to continue)")
+        input("PCAANN updated. (Press enter to continue)")
         exec_script('../run.bat')
         exit()
     elif user_input == 'data':
