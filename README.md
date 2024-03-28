@@ -49,4 +49,4 @@ More detail is written in the SOP.
 
 5. Select any raw data to be used
 
-6. Start the app from the prompter
+6. Start the app from the helper
