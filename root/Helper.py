@@ -3,6 +3,7 @@ import sys
 import subprocess
 import tkinter as tk
 from tkinter import filedialog
+from git import Repo
 
 CWD = os.path.dirname(os.path.realpath(__file__))
 
@@ -29,6 +30,15 @@ def update():
     exec_script("update.bat")
 
 
+def check_for_updates() -> bool:
+    repo = Repo('..')
+    remote = repo.remote('origin')
+    remote.fetch()
+    lrc = remote.refs[repo.active_branch.name].commit
+    llc = repo.head.commit
+    return llc != lrc
+
+
 def help():
     print("")
     print("-----------------------------------------------------------------")
@@ -49,6 +59,8 @@ def help():
 def driver(first_run=False):
     if first_run:
         os.system("cls")
+        if check_for_updates():
+            print('Update available')
     print("-----------------------------------------------------------------")
     print("Options: <start> <stop> <build> <data> <update> <help> <exit>")
     user_input = input(":: ")
@@ -72,8 +84,8 @@ def driver(first_run=False):
         if file_path.endswith('.xlsx'):
             print(f'Selected file: {file_path}')
             file_path = file_path.replace('/', '\\')
-            os.system(f"copy \"{file_path}\" {
-                      os.path.join('PCA-ANN-code', 'RAW-DATA')}")
+            file_dest = os.path.join('PCA-ANN-code', 'RAW-DATA')
+            os.system(f"copy \"{file_path}\" {file_dest}")
             pass
         else:
             print('Error: data must be in .xlsx format')
