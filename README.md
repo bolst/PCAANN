@@ -27,7 +27,7 @@ In case the UI is not clear enough, a typical use case of the app would be as fo
 
 If one already has a set of PCA scores, one can skip steps 1-6 and use the `Load PCA Scores` button and continue with the rest of the steps.
 
-More detail is written in the SOP.
+More detail is written in the SOP and documentation.
 
 
 # Quick Start
