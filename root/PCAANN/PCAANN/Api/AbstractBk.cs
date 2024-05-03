@@ -18,7 +18,7 @@ public abstract class AbstractBk
     public async Task<bool> Perform()
     {
         // to ensure the http request doesn't time out while waiting for pca/ann to run
-        client.Timeout = TimeSpan.FromMinutes(10);
+        client.Timeout = Timeout.InfiniteTimeSpan;
 
         if (IsCallable())
         {
